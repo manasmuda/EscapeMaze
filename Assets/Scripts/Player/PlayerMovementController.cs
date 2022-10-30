@@ -44,7 +44,7 @@ public class PlayerMovementController : MonoBehaviour {
         } else if (yAxis <0) {
             currentSpeed = walkSpeed;
         }
-        Debug.Log(_playerMovementInputManager.JoystickVector);
+        
         Vector2 movementDirection = _playerMovementInputManager.JoystickVector * (currentSpeed * Time.deltaTime);
         playerRb.velocity = playerTransform.right * movementDirection.x + playerTransform.forward * movementDirection.y;
     }
