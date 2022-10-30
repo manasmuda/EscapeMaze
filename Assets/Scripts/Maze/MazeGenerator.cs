@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Maze {
+namespace EscapeMaze.Maze {
 
     public class MazeGenerator {
 

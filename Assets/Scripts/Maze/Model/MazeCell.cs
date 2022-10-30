@@ -1,4 +1,4 @@
-namespace Maze {
+namespace EscapeMaze.Maze {
 
     public class MazeCell {
         public bool northWall;

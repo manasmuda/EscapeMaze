@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace Maze {
+namespace EscapeMaze.Maze {
 
     public class MazeSettings : ScriptableObjectInstaller<MazeSettings> {
 

@@ -1,19 +1,28 @@
-using System;
+using Cysharp.Threading.Tasks;
+using Unity.AI.Navigation;
 using UnityEngine;
 using Zenject;
 
-namespace Maze {
+namespace EscapeMaze.Maze {
 
     public class MazeInitializer : MonoBehaviour {
+
+        public NavMeshSurface mazeNavMeshSurface;
 
         [Inject] private DiContainer _container;
         [Inject] private MazeSettings _mazeSettings;
 
-        private void Start() {
+        private void Awake() {
             MazeGenerator mazeGenerator = new MazeGenerator(_mazeSettings.mazeSize);
             MazeCell[,] mazeCells = mazeGenerator.GenerateMaze();
             MazeSettings.MazePreset preset = _mazeSettings.GetRandomMazePreset();
             InstantiateMaze(mazeCells, preset.prefabObject);
+            BuildNavMesh();
+        }
+
+        private async void BuildNavMesh() {
+            await UniTask.WaitForEndOfFrame(this);
+            mazeNavMeshSurface.BuildNavMesh();
         }
 
         private void InstantiateMaze(MazeCell[,] maze, GameObject mazePrefab) {
