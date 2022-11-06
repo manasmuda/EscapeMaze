@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: MazeSettings
   m_EditorClassIdentifier: 
   mazePresets:
-  - prefabObject: {fileID: 1253410438759305233, guid: a4763bace1fd01d4293b21c4d7a35706, type: 3}
-    sharedMaterials: []
+  - m_AssetGUID: 26b8527f14ea5ef42ba15c8e73e5ebde
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   mazeSize: 20

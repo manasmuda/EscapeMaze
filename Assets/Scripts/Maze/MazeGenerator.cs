@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace EscapeMaze.Maze {
@@ -43,56 +42,22 @@ namespace EscapeMaze.Maze {
                     if (direction > 4)
                         continue;
                     if (direction == 1 && i > 0) {
-                        _randMaze[i, j].northWall = false;
-                        _randMaze[i - 1, j].southWall = false;
+                        _randMaze[i, j].northWall.Disable();
+                        _randMaze[i - 1, j].southWall.Disable();
                     } else if (direction == 2 && i < _cellSize - 1) {
-                        _randMaze[i, j].southWall = false;
-                        _randMaze[i + 1, j].northWall = false;
+                        _randMaze[i, j].southWall.Disable();
+                        _randMaze[i + 1, j].northWall.Disable();
                     } else if (direction == 3 && j < _cellSize - 1) {
-                        _randMaze[i, j].eastWall = false;
-                        _randMaze[i, j + 1].westWall = false;
+                        _randMaze[i, j].eastWall.Disable();
+                        _randMaze[i, j + 1].westWall.Disable();
                     } else if (direction == 4 && j > 0) {
-                        _randMaze[i, j].westWall = false;
-                        _randMaze[i, j - 1].eastWall = false;
+                        _randMaze[i, j].westWall.Disable();
+                        _randMaze[i, j - 1].eastWall.Disable();
                     }
-
                 }
             }
 
             Debug.Log("Modified Maze Created");
-            /*bool redBase = false;
-            bool blueBase = false;
-            for (int i = 0; i < _cellSize - 1; i++) {
-                if (!redBase) {
-                    if (!_randMaze[0, i].eastWall && !_randMaze[0, i + 1].westWall) {
-                        redBase = true;
-                    }
-                }
-
-                if (!blueBase) {
-                    if (!_randMaze[_cellSize - 1, i].eastWall && !_randMaze[_cellSize - 1, i + 1].westWall) {
-                        blueBase = true;
-                    }
-                }
-
-                if (redBase && blueBase) {
-                    break;
-                }
-            }
-
-            Debug.Log("Maze Base Checked");
-            if (!redBase) {
-                _randMaze[0, _cellSize - 2].eastWall = false;
-                _randMaze[0, _cellSize - 1].westWall = false;
-            }
-
-            if (!blueBase) {
-                _randMaze[_cellSize - 1, 0].eastWall = false;
-                _randMaze[_cellSize - 1, 1].westWall = false;
-            }
-*/
-            Debug.Log("Maze Generation finished");
-
             return _randMaze;
         }
 
@@ -113,44 +78,28 @@ namespace EscapeMaze.Maze {
         }
 
         private void CreatePath() {
-            //List<int> checkedDirections = new List<int> { };
             while (RouteStillAvailable(_currentRow, _currentColumn)) {
                 int direction = Random.Range(1, 5);
-                //while (checkedDirections.Contains(direction))
-                //{
-                //  direction = Random.Range(1, 5);
-                //}
-                //checkedDirections.Add(direction);
-                //int direction = ProceduralNumberGenerator.GetNextNumber();
-
                 if (direction == 1 && CellIsAvailable(_currentRow - 1, _currentColumn)) {
                     // North
-                    _randMaze[_currentRow, _currentColumn].northWall = false;
-                    _randMaze[_currentRow - 1, _currentColumn].southWall = false;
-                    //visited[currentRow, currentColumn] = true;
+                    _randMaze[_currentRow, _currentColumn].northWall.Disable();
+                    _randMaze[_currentRow - 1, _currentColumn].southWall.Disable();
                     _currentRow--;
-                    //checkedDirections = new List<int> { };
                 } else if (direction == 2 && CellIsAvailable(_currentRow + 1, _currentColumn)) {
                     // South
-                    _randMaze[_currentRow, _currentColumn].southWall = false;
-                    _randMaze[_currentRow + 1, _currentColumn].northWall = false;
-                    //visited[currentRow, currentColumn] = true;
+                    _randMaze[_currentRow, _currentColumn].southWall.Disable();
+                    _randMaze[_currentRow + 1, _currentColumn].northWall.Disable();
                     _currentRow++;
-                    //checkedDirections = new List<int> { };
                 } else if (direction == 3 && CellIsAvailable(_currentRow, _currentColumn + 1)) {
                     // east
-                    _randMaze[_currentRow, _currentColumn].eastWall = false;
-                    _randMaze[_currentRow, _currentColumn + 1].westWall = false;
-                    //visited[currentRow, currentColumn] = true;
+                    _randMaze[_currentRow, _currentColumn].eastWall.Disable();
+                    _randMaze[_currentRow, _currentColumn + 1].westWall.Disable();
                     _currentColumn++;
-                    //checkedDirections = new List<int> { };
                 } else if (direction == 4 && CellIsAvailable(_currentRow, _currentColumn - 1)) {
                     // west
-                    _randMaze[_currentRow, _currentColumn].westWall = false;
-                    _randMaze[_currentRow, _currentColumn - 1].eastWall = false;
-                    //visited[currentRow, currentColumn] = true;
+                    _randMaze[_currentRow, _currentColumn].westWall.Disable();
+                    _randMaze[_currentRow, _currentColumn - 1].eastWall.Disable();
                     _currentColumn--;
-                    //checkedDirections = new List<int> { };
                 }
 
                 _visited[_currentRow, _currentColumn] = true;
@@ -186,26 +135,23 @@ namespace EscapeMaze.Maze {
 
         private void DestroyAdjacentWall(int row, int column) {
             bool wallDestroyed = false;
-
             while (!wallDestroyed) {
                 int direction = Random.Range(1, 5);
-                //int direction = ProceduralNumberGenerator.GetNextNumber();
-
                 if (direction == 1 && row > 0 && _visited[row - 1, column]) {
-                    _randMaze[row, column].northWall = false;
-                    _randMaze[row - 1, column].southWall = false;
+                    _randMaze[row, column].northWall.Disable();
+                    _randMaze[row - 1, column].southWall.Disable();
                     wallDestroyed = true;
                 } else if (direction == 2 && row < _cellSize - 1 && _visited[row + 1, column]) {
-                    _randMaze[row, column].southWall = false;
-                    _randMaze[row + 1, column].northWall = false;
+                    _randMaze[row, column].southWall.Disable();
+                    _randMaze[row + 1, column].northWall.Disable();
                     wallDestroyed = true;
                 } else if (direction == 3 && column > 0 && _visited[row, column - 1]) {
-                    _randMaze[row, column].westWall = false;
-                    _randMaze[row, column - 1].eastWall = false;
+                    _randMaze[row, column].westWall.Disable();
+                    _randMaze[row, column - 1].eastWall.Disable();
                     wallDestroyed = true;
                 } else if (direction == 4 && column < _cellSize - 1 && _visited[row, column + 1]) {
-                    _randMaze[row, column].eastWall = false;
-                    _randMaze[row, column + 1].westWall = false;
+                    _randMaze[row, column].eastWall.Disable();
+                    _randMaze[row, column + 1].westWall.Disable();
                     wallDestroyed = true;
                 }
             }
@@ -241,36 +187,6 @@ namespace EscapeMaze.Maze {
                 return false;
             }
         }
-
-        public static List<object> ToObjectList(MazeCell[,] mazeCells) {
-            List<object> list = new List<object>();
-            for (int i = 0; i < mazeCells.GetLength(0); i++) {
-                for (int j = 0; j < mazeCells.GetLength(1); j++) {
-                    string[] temparr = {"1", "1", "1", "1"};
-                    if (!mazeCells[i, j].northWall) {
-                        temparr[0] = "0";
-                    }
-
-                    if (!mazeCells[i, j].southWall) {
-                        temparr[1] = "0";
-                    }
-
-                    if (!mazeCells[i, j].eastWall) {
-                        temparr[2] = "0";
-                    }
-
-                    if (!mazeCells[i, j].westWall) {
-                        temparr[3] = "0";
-                    }
-
-                    string temp = string.Join(",", temparr);
-                    list.Add(temp);
-                }
-            }
-
-            return list;
-        }
-
+        
     }
-
 }

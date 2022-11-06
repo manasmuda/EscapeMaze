@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 4701039733560764374}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,8 +131,9 @@ MonoBehaviour:
   playerTransform: {fileID: 6379893918604797858}
   playerRb: {fileID: 7686803593827057593}
   playerAnimator: {fileID: 3344469841015022116}
-  walkSpeed: 300
-  runSpeed: 550
+  walkSpeed: 200
+  runSpeed: 350
+  maxSpeed: 350
 --- !u!1 &6379893919660921704
 GameObject:
   m_ObjectHideFlags: 0
