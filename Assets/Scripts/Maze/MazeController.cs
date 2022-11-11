@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace EscapeMaze.Maze {
 
-    public class MazeInitializer : MonoBehaviour {
+    public class MazeController : MonoBehaviour {
 
         public NavMeshSurface mazeNavMeshSurface;
 
@@ -49,23 +49,23 @@ namespace EscapeMaze.Maze {
                     float cellZ = ((mazeSize * (mazeLengthX - 1))/2) - mazeSize * i;
 
                     if (maze[i, j].IsNorthWallEnabled()) {
-                        _container.InstantiatePrefab(mazePrefab, new Vector3(cellX, cellY, cellZ + mazeSize/2),
-                            Quaternion.Euler(270, 180, 0), transform);
+                        maze[i, j].northWall.SetWallObj(_container.InstantiatePrefab(mazePrefab, new Vector3(cellX, cellY, cellZ + mazeSize/2),
+                            Quaternion.Euler(270, 180, 0), transform));
                     }
 
                     if (maze[i, j].IsSouthWallEnabled()) {
-                        _container.InstantiatePrefab(mazePrefab, new Vector3(cellX, cellY, cellZ - mazeSize/2),
-                            Quaternion.Euler(270, 0, 0), transform);
+                        maze[i, j].southWall.SetWallObj(_container.InstantiatePrefab(mazePrefab, new Vector3(cellX, cellY, cellZ - mazeSize/2),
+                            Quaternion.Euler(270, 0, 0), transform));
                     }
 
                     if (maze[i, j].IsEastWallEnabled()) {
-                        _container.InstantiatePrefab(mazePrefab, new Vector3(cellX + mazeSize/2, cellY, cellZ),
-                            Quaternion.Euler(270, 270, 0), transform);
+                        maze[i, j].eastWall.SetWallObj(_container.InstantiatePrefab(mazePrefab, new Vector3(cellX + mazeSize/2, cellY, cellZ),
+                            Quaternion.Euler(270, 270, 0), transform));
                     }
 
                     if (maze[i, j].IsWestWallEnabled()) {
-                        _container.InstantiatePrefab(mazePrefab, new Vector3(cellX - mazeSize/2, cellY, cellZ),
-                            Quaternion.Euler(270, 90, 0), transform);
+                        maze[i, j].westWall.SetWallObj(_container.InstantiatePrefab(mazePrefab, new Vector3(cellX - mazeSize/2, cellY, cellZ),
+                            Quaternion.Euler(270, 90, 0), transform));
                     }
                 }
             }
@@ -78,7 +78,7 @@ namespace EscapeMaze.Maze {
         }
 
         public Vector3 GetRandomMazePosition(MazeDirection direction) {
-            int mazeOffset = Mathf.RoundToInt((float)_mazeSettings.mazeSize / 10f);
+            int mazeOffset = Mathf.RoundToInt(_mazeSettings.mazeSize / 10f);
             mazeOffset = Mathf.Clamp(mazeOffset, 1, mazeOffset);
             int columnIndex = Random.Range(mazeOffset, _mazeSettings.mazeSize-mazeOffset);
             int rowIndex = Random.Range(0, mazeOffset); 
@@ -109,15 +109,13 @@ namespace EscapeMaze.Maze {
         }
         
         public MazeCell.Wall GetRandomMazeBorderWall(MazeDirection direction) {
-            int mazeOffset = Mathf.RoundToInt((float)_mazeSettings.mazeSize / 2f);
+            int mazeOffset = Mathf.RoundToInt(_mazeSettings.mazeSize / 2f);
             mazeOffset = Mathf.Clamp(mazeOffset, 1, mazeOffset);
             int columnIndex = 0;
             int rowIndex = Random.Range(0, mazeOffset);
             if (rowIndex == 0) {
                 columnIndex = Random.Range(0, _mazeSettings.mazeSize);
             }
-
-            MazeCell.Wall wall;
             int i,j;
             if (direction == MazeDirection.North) {
                 i = rowIndex;
@@ -132,6 +130,8 @@ namespace EscapeMaze.Maze {
                 i = columnIndex;
                 j = rowIndex;
             }
+            
+            Debug.LogError($"{i},{j}");
 
             return GetBorderWallForCell(i, j);
         }
@@ -144,9 +144,9 @@ namespace EscapeMaze.Maze {
             } else if(i == mazeSize - 1) {
                 return cell.southWall;
             } else if(j == mazeSize - 1) {
-                return cell.westWall;
+                return cell.eastWall;
             } else if(j == 0) {
-                return cell.southWall;
+                return cell.westWall;
             }
             Debug.LogError("Cell Does not contain any Maze Wall");
             return null;
@@ -156,8 +156,8 @@ namespace EscapeMaze.Maze {
 
     public enum MazeDirection {
         North = 1,
-        South = 2,
-        East = 3,
+        East = 2,
+        South = 3,
         West = 4
     }
 }

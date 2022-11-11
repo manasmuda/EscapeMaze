@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 namespace EscapeMaze.Game.Player {
     public class PlayerEnvController : MonoBehaviour {

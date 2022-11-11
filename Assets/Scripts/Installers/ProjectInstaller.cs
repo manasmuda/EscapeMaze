@@ -5,12 +5,12 @@ namespace EscapeMaze {
 
    public class ProjectInstaller : MonoInstaller {
 
-      [SerializeField] private GameObject ApplicationManager;
+      [SerializeField] private ApplicationManager applicationManager;
 
       public override void InstallBindings() {
          SignalBusInstaller.Install(Container);
 
-         Container.BindInstance(ApplicationManager).AsSingle();
+         Container.BindInstance(applicationManager).AsSingle();
       }
    }
 }

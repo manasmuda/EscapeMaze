@@ -3,17 +3,16 @@ using Zenject;
 
 namespace EscapeMaze.Game.Player {
 
-    public class PlayerMovementController : MonoBehaviour {
-
+    public class PlayerController : MonoBehaviour {
 
         public Transform playerTransform;
         public Rigidbody playerRb;
         public Animator playerAnimator;
-        public float maxSpeed = 350f;
 
         private int _moveXId, _moveYId;
 
         [Inject] private PlayerMovementInputManager _playerMovementInputManager;
+        [Inject] private PlayerSettings _playerSettings;
 
         private void Awake() {
             _moveXId = Animator.StringToHash("MoveX");
@@ -31,8 +30,8 @@ namespace EscapeMaze.Game.Player {
         }
 
         private void MovePlayerByInput() {
-            float deltaMovementX = 0.75f * _playerMovementInputManager.JoyStickXAxis * maxSpeed * Time.deltaTime;
-            float deltaMovementY = _playerMovementInputManager.JoyStickYAxis * maxSpeed * Time.deltaTime;
+            float deltaMovementX = 0.75f * _playerMovementInputManager.JoyStickXAxis * _playerSettings.maxSpeed * Time.deltaTime;
+            float deltaMovementY = _playerMovementInputManager.JoyStickYAxis * _playerSettings.maxSpeed * Time.deltaTime;
             if (deltaMovementY < 0) {
                 deltaMovementY *= 0.75f;
             }

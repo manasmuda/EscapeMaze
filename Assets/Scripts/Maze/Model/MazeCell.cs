@@ -11,10 +11,10 @@ namespace EscapeMaze.Maze {
         public int row, col;
 
         public MazeCell(int row, int col) {
-            northWall = new Wall();
-            southWall = new Wall();
-            eastWall = new Wall();
-            westWall = new Wall();
+            northWall = new Wall(MazeDirection.North);
+            southWall = new Wall(MazeDirection.South);
+            eastWall = new Wall(MazeDirection.East);
+            westWall = new Wall(MazeDirection.West);
             this.row = row;
             this.col = col;
         }
@@ -38,9 +38,11 @@ namespace EscapeMaze.Maze {
         public class Wall {
             private bool enabled;
             private GameObject obj;
+            public MazeDirection direction;
             
-            public Wall() {
+            public Wall(MazeDirection direction) {
                 enabled = true;
+                this.direction = direction;
             }
 
             public bool IsEnabled() {

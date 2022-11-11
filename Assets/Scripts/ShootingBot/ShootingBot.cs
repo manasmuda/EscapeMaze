@@ -1,7 +1,8 @@
-using System;
+using Cysharp.Threading.Tasks;
 using EscapeMaze.StateMachine;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace EscapeMaze.Game.Bot {
@@ -14,16 +15,17 @@ namespace EscapeMaze.Game.Bot {
 
         public GameObject bulletPrefab;
         public Transform gunPos;
-        public float bulletSpeed = 500;
-
-        private const int ShootDelay = 500;
-        private int _curShotTime;
+        
+        private float _curShotTime;
         private Vector3 _destination;
 
-        private int _playerLayer;
+        private int _shootingMaskLayer;
 
         private Transform _myTransform;
         private Transform _target;
+
+        [Inject] private DiContainer _container;
+        [Inject] private ShootingBotSettings _shootingBotSettings;
 
         public enum State {
             FindDest, // Finding random destination in Range
@@ -37,11 +39,20 @@ namespace EscapeMaze.Game.Bot {
 
         private void Awake() {
             _myTransform = transform;
-            _playerLayer = LayerMask.GetMask("Player");
+            _shootingMaskLayer = LayerMask.GetMask("Player", "Maze");
         }
 
         private void Start() {
-            EnterState(State.FindDest, null);
+            InitializeBot();
+        }
+
+        private async void InitializeBot() {
+            await UniTask.Delay(100);
+            if (navMeshAgent.isOnNavMesh) {
+                EnterState(State.FindDest, null);
+            } else {
+                Debug.LogError("Not on NavMesh");
+            }
         }
 
         private void Update() {
@@ -56,8 +67,8 @@ namespace EscapeMaze.Game.Bot {
             }
 
             if (CurrentState == State.Shooting) {
-                _curShotTime += Convert.ToInt32(Time.deltaTime * 1000);
-                if (_curShotTime >= ShootDelay) {
+                _curShotTime += Time.deltaTime;
+                if (_curShotTime >= _shootingBotSettings.BulletDelay) {
                     Shoot();
                 }
             }
@@ -118,8 +129,7 @@ namespace EscapeMaze.Game.Bot {
                 _target = target;
                 navMeshAgent.SetDestination(_myTransform.position);
                 _myTransform.rotation = Quaternion.LookRotation(_target.position - _myTransform.position);
-                if (Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit,
-                        shootingCollider.radius, _playerLayer)) {
+                if (Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit, shootingCollider.radius, _shootingMaskLayer)) {
                     Debug.LogError(hit.collider.gameObject.name);
                     if (hit.collider.CompareTag("Player")) {
                         EnterState(State.Shooting, _target);
@@ -144,16 +154,16 @@ namespace EscapeMaze.Game.Bot {
             }
         }
 
-
         private void Shoot() {
             _curShotTime = 0;
             if (Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit,
-                    shootingCollider.radius, _playerLayer)) {
+                    shootingCollider.radius, _shootingMaskLayer)) {
                 Debug.LogError(hit.collider.gameObject.name);
                 if (hit.collider.CompareTag("Player")) {
-                    GameObject temp = Instantiate(bulletPrefab, gunPos.position, Quaternion.identity);
-                    temp.GetComponent<Rigidbody>()
-                        .AddForce(gunPos.forward * (bulletSpeed * Time.deltaTime), ForceMode.Impulse);
+                    GameObject temp = _container.InstantiatePrefab(bulletPrefab, new GameObjectCreationParameters() {
+                        Position = gunPos.position
+                    });
+                    temp.GetComponent<Rigidbody>().AddForce(gunPos.forward * (_shootingBotSettings.bulletForce), ForceMode.Impulse);
                     Destroy(temp, 1f);
                 } else {
                     EnterState(State.Aiming, _target);

@@ -87,6 +87,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5c9586ec019d8364d9d163d131ad0cf8, type: 3}
+      propertyPath: m_TagString
+      value: Maze
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c9586ec019d8364d9d163d131ad0cf8, type: 3}
 --- !u!1 &1253410438759305233 stripped
