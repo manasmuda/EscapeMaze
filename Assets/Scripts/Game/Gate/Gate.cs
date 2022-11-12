@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using EscapeMaze.Game.Player;
 using UnityEngine;
@@ -9,6 +8,7 @@ namespace EscapeMaze.Game {
     public class Gate : MonoBehaviour {
         
         [Inject] private PlayerDataManager _playerDataManager;
+        [Inject] private GameManager _gameManager;
 
         public Transform gateTransform;
 
@@ -24,7 +24,7 @@ namespace EscapeMaze.Game {
                     OpenGate();
                 }
             } else if(type == DetectorType.Exit){
-                //Call Victory
+                _gameManager.EndMatch(GameResult.Victory);
             }
         }
 

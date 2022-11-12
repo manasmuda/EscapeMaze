@@ -16,7 +16,11 @@ namespace EscapeMaze.Game {
         [Inject] private GameSettings _gameSettings;
         [Inject] private SignalBus _signalBus;
 
+        [Inject] private GameTimer _gameTimer;
+
         [Inject] private PlayerDataManager _playerDataManager;
+        [Inject] private MatchResultPage _matchResultPage;
+        
         private PlayerEnvController _playerEnvController;
         
         #region Asset References
@@ -43,6 +47,7 @@ namespace EscapeMaze.Game {
         private async void InitializeGame() {
             await _mazeController.InitializeMaze();
             await UniTask.WhenAll(SpawnPlayer(), SpawnBots(), SetExitGate(), SpawnKeys());
+            _gameTimer.StartTimer();
             Debug.Log("Game Initialized");
         }
 
@@ -101,6 +106,12 @@ namespace EscapeMaze.Game {
                 key.SpawnKey(position);
             }
             _playerDataManager.ResetPlayerData();
+        }
+
+        public void EndMatch(GameResult result) {
+            _gameTimer.PauseTimer();
+            Object.Destroy(_playerEnvController.gameObject);
+            _matchResultPage.ShowMatchResult(result);
         }
         
         private void UnloadAssets() {

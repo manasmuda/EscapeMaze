@@ -8,13 +8,17 @@ namespace EscapeMaze.Game {
     public class GameInstaller : MonoInstaller {
 
         public MazeController mazeController;
+        public MatchResultPage matchResultPage;
 
         public override void InstallBindings() {
 
             Container.BindInterfacesAndSelfTo<GameManager>().AsSingle();
+            Container.BindInterfacesAndSelfTo<GameTimer>().AsSingle();
 
             Container.BindInstance(mazeController).AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerDataManager>().AsSingle();
+
+            Container.BindInstance(matchResultPage).AsSingle();
 
             Container.DeclareSignal<PlayerDiedSignal>();
             Container.DeclareSignal<BulletPlayerHitSignal>();
@@ -36,5 +40,14 @@ namespace EscapeMaze.Game {
 
     public struct KeyCollectedSignal {
         public Key key;
+    }
+
+    public struct GameResultSignal {
+        public GameResult result;
+    }
+    
+    public enum GameResult {
+        Victory,
+        Defeat
     }
 }

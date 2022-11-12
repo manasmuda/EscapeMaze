@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class ScriptableObjectGenerator : ScriptableWizard {
 
-    public UnityEngine.Object obj;
-    public string name;
-    public string path;
+    public MonoScript soMonoScript;
+    public string fileName;
+    public string filePath;
     
     [MenuItem("Window/Custom Tools/Scriptable Object Generator")]
     static void CreateWizard() {
         var wizard = DisplayWizard<ScriptableObjectGenerator>("Generate Scriptable Object", "Generator");
-        wizard.path = "Assets/DataSO/";
+        wizard.filePath = "Assets/DataSO/";
     }
 
     private void OnWizardCreate() {
-        if (obj is MonoScript && !string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(path) && path.Contains("Assets/")) {
-            Type scriptableObjectType = ((MonoScript) obj).GetClass();
+        if (!string.IsNullOrEmpty(fileName) && !string.IsNullOrEmpty(filePath) && filePath.Contains("Assets/")) {
+            Type scriptableObjectType = soMonoScript.GetClass();
             if (scriptableObjectType != null) {
-                var asset = ScriptableObject.CreateInstance(scriptableObjectType);
+                var asset = CreateInstance(scriptableObjectType);
 
-                AssetDatabase.CreateAsset(asset, path+name+".asset");
+                AssetDatabase.CreateAsset(asset, filePath+fileName+".asset");
                 AssetDatabase.SaveAssets();
 
                 EditorUtility.FocusProjectWindow();
