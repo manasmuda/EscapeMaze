@@ -1,11 +1,16 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace EscapeMaze.Lobby {
+    
+    [RequireComponent(typeof(Button))]
     public class ExitButton : MonoBehaviour {
-        // Start is called before the first frame update
-        void Start() { }
 
-        // Update is called once per frame
-        void Update() { }
+        public Button button;
+
+        private void Start() {
+            button.onClick.AddListener(Application.Quit);
+        }
     }
 }

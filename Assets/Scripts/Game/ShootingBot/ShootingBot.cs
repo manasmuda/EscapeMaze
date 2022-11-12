@@ -75,7 +75,6 @@ namespace EscapeMaze.Game.Bot {
         }
 
         public void EnterState(State state, Transform targetTransform) {
-            Debug.LogError("Enter:" + CurrentState);
             SetState(state);
             _target = targetTransform;
             _destination = new Vector3(0, 100, 0);
@@ -130,7 +129,6 @@ namespace EscapeMaze.Game.Bot {
                 navMeshAgent.SetDestination(_myTransform.position);
                 _myTransform.rotation = Quaternion.LookRotation(_target.position - _myTransform.position);
                 if (Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit, shootingCollider.radius, _shootingMaskLayer)) {
-                    Debug.LogError(hit.collider.gameObject.name);
                     if (hit.collider.CompareTag("Player")) {
                         EnterState(State.Shooting, _target);
                     } else {
@@ -158,7 +156,6 @@ namespace EscapeMaze.Game.Bot {
             _curShotTime = 0;
             if (Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit,
                     shootingCollider.radius, _shootingMaskLayer)) {
-                Debug.LogError(hit.collider.gameObject.name);
                 if (hit.collider.CompareTag("Player")) {
                     GameObject temp = _container.InstantiatePrefab(bulletPrefab, new GameObjectCreationParameters() {
                         Position = gunPos.position
@@ -175,11 +172,9 @@ namespace EscapeMaze.Game.Bot {
 
         public void SetState(State state) {
             CurrentState = state;
-            Debug.LogError("Current:" + state);
         }
 
         public void Exit() {
-            Debug.LogError("Exit:" + CurrentState);
             if (CurrentState == State.Chasing) {
                 EnterState(State.FindDest, null);
             } else if (CurrentState == State.Aiming) {

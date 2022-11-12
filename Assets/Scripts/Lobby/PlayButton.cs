@@ -1,12 +1,24 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 
 namespace EscapeMaze.Lobby {
 
+    [RequireComponent(typeof(Button))]
     public class PlayButton : MonoBehaviour {
-        // Start is called before the first frame update
-        void Start() { }
 
-        // Update is called once per frame
-        void Update() { }
+        public Button button;
+
+        void Start() {
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(LoadGameScene);
+        }
+
+        private async void LoadGameScene() {
+            button.interactable = false;
+            await Addressables.LoadSceneAsync("GameScene");
+        }
+
     }
 }

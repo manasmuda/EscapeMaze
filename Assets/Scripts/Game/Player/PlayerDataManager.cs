@@ -8,6 +8,7 @@ namespace EscapeMaze.Game.Player {
 
         [Inject] private SignalBus _signalBus;
         [Inject] private PlayerSettings _playerSettings;
+        [Inject] private GameSettings _gameSettings;
 
         private int _health;
         private List<Key> _collectedKeys = new List<Key>();
@@ -43,6 +44,10 @@ namespace EscapeMaze.Game.Player {
 
         public List<Key> GetCollectedKeys() {
             return _collectedKeys;
+        }
+
+        public bool HasCollectedAllKeys() {
+            return _collectedKeys.Count == _gameSettings.totalKeys;
         }
 
         public void ResetPlayerData() {
