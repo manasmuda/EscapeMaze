@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9189811926855455691}
   - component: {fileID: 5950693281261856370}
   - component: {fileID: 490098062986735976}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Tire.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 5402028401931371762}
   - component: {fileID: 4080057448572228116}
   - component: {fileID: 8740750899933635697}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LineOfSight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 2665417761861394375}
   - component: {fileID: 2215960497525977610}
   - component: {fileID: 1244485065882107306}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: ShootingBot
   m_TagString: Bot
   m_Icon: {fileID: 0}
@@ -257,7 +257,6 @@ MonoBehaviour:
   shootingCollider: {fileID: 9076042993528874010}
   bulletPrefab: {fileID: 4912938585013577949, guid: b573aaf3992674f42a3fc6bc3eeae484, type: 3}
   gunPos: {fileID: 4946979553705380301}
-  bulletSpeed: 500
 --- !u!114 &2215960497525977610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,7 +302,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4946979553705380301}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: GunPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +335,7 @@ GameObject:
   - component: {fileID: 2521844950301998286}
   - component: {fileID: 3833786711259497451}
   - component: {fileID: 8420359418070454431}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Robot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -420,7 +419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 285414957115345748}
   - component: {fileID: 2298081843808211843}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PatrolRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -466,7 +465,7 @@ GameObject:
   - component: {fileID: 5256844989712162016}
   - component: {fileID: 8264575681743681982}
   - component: {fileID: 3708695463967163654}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ChasingRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,7 +526,7 @@ GameObject:
   - component: {fileID: 6207123778073200232}
   - component: {fileID: 9076042993528874010}
   - component: {fileID: 557138962547811860}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShootingRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
