@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c0f01b8753bab44c927ab7586f22cd4, type: 3}
   m_Name: PlayerSettings
   m_EditorClassIdentifier: 
-  maxSpeed: 400
+  maxSpeed: 250
   health: 100
