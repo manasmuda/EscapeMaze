@@ -12,18 +12,18 @@ Demo Video: https://drive.google.com/file/d/1VmxA9I9AKDMJJVKUP779UlgQBu4mXA9B/vi
 
 ![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/logo.png?raw=true)
 
-![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/ScreenShot/1.png?raw=true)
+![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/Screenshot/1.png?raw=true)
 
-![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/ScreenShot/2.png?raw=true)
+![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/Screenshot/2.png?raw=true)
 
-![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/ScreenShot/3.png?raw=true)
+![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/Screenshot/3.png?raw=true)
 
-![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/ScreenShot/4.png?raw=true)
+![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/Screenshot/4.png?raw=true)
 
-![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/ScreenShot/5.png?raw=true)
+![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/Screenshot/5.png?raw=true)
 
-![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/ScreenShot/6.png?raw=true)
+![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/Screenshot/6.png?raw=true)
 
-![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/ScreenShot/7.png?raw=true)
+![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/Screenshot/7.png?raw=true)
 
-![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/ScreenShot/8.png?raw=true)
+![alt text](https://github.com/manasmuda/EscapeMaze/blob/master/GameImages/Screenshot/8.png?raw=true)
